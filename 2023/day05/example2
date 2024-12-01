@@ -1,0 +1,100 @@
+seeds: 79 14 55 13 => [79,93]
+
+seed-to-soil map:
+50 98 2
+52 50 48
+
+seeds: 71 14 57 13
+
+soil-to-fertilizer map:
+0 15 37
+37 52 2
+39 0 15
+
+fertilizer-to-water map:
+49 53 8
+0 11 42
+42 0 7
+57 7 4
+
+water-to-light map:
+88 18 7
+18 25 70
+
+light-to-temperature map:
+45 77 23
+81 45 19
+68 64 13
+
+temperature-to-humidity map:
+0 69 1
+1 0 69
+
+humidity-to-location map:
+60 56 37
+56 93 4
+
+# case 1
+# seed:   |------|   |    |---| | |------|    | |------|
+# map:  |----------| | |------| | |---------| | |------|
+
+seed: 8 2 =>     8 9
+map:  6 5 => 6 7 8 9 10
+diff = 8 - 6 => 2
+range = 8 2 √
+
+
+seed: 8 3 =>     8 9 10
+map:  6 5 => 6 7 8 9 10
+diff = 8 - 6 => 2
+range: 8 3 √
+
+
+seed: 6 2 => 6 7
+map:  6 5 => 6 7 8 9 10
+diff = 6 - 6 => 0
+range: 6 2 √
+
+
+seed: 6 5 => 6 7 8 9 10
+map:  6 5 => 6 7 8 9 10
+diff = 6 - 6 => 0
+range: 6 5 √
+
+
+# case 2
+# seed: |-------------|
+# map:     |-----|
+
+seed: 3 6 => 3 4 5 6 7 8
+map:  4 2 =>   4 5
+range1: 3 1 √
+range2: 4 2 √
+range3: 6 3 √
+
+
+# case 3
+# seed:   |-------| | |---------------|
+# map: |----|       | |-----------|
+
+seed: 5 5 =>     5 6 7 8 9
+map:  3 4 => 3 4 5 6
+diff = 5 - 2 => 2
+range1: 5 2 √
+range2: 7 3 √
+
+seed: 5 7 => 5 6 7 8 9 10 11
+map:  5 5 => 5 6 7 8 9
+diff = 5 - 5 => 0
+range1: 5 5 √
+range2: 10 2 √
+
+
+# case 4
+# seed: |-------|     | |-----------|
+# map:    |-------|   |    |--------|
+
+seed: 3 5 => 3 4 5 6 7
+map:  5 5 =>     5 6 7 8 9
+range1: 5 3 √
+range2: 5 3 √

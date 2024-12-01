@@ -1,0 +1,43 @@
+AAA = (FHJ, QHN) => ... => BJT = (KQG, ZZZ)
+DVA = (XXG, PRR) => ... => CDH = (FGD, XDZ)
+VXA = (BRF, XKN) => ... => FSV = (QGP, TNZ)
+JHA = (BXQ, RTP) => ... => HFD = (PHP, FRZ)
+NMA = (KGM, SXH) => ... => FQM = (QVH, JFZ)
+PXA = (KBG, KQF)
+
+HFD = (PHP, FRZ) √
+CDH = (FGD, XDZ) √
+FQM = (QVH, JFZ) √
+BJT = (KQG, ZZZ) √
+FSV = (QGP, TNZ) √
+JGG = (QDD, LHZ) √
+
+AAA => ZZZ: 22199
+DVA => XDZ: 13207
+VXA => TNZ: 16579
+JHA => FRZ: 18827
+NMA => JFZ: 17141
+PXA => LHZ: 14893
+Total: 102846
+
+is it 13 334 102 464 297 ?
+
+
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+
+AAA => ZZZ --> A: 0, Z: 25 => AAA = 3 * 0 = 0 | ZZZ = 3 * 25 = 75
+AAA = 3 * 0 => 0 | ZZZ = 3 * 25 => 75
+
+AAA = 1 + 1 + 1 => 0 | ZZZ = 26 + 26 + 26 = 78
+JHA = 10 + 8 + 2 => 20 | TNZ = 20 + 14 + 26 = 57
+DVA = 4 + 22 + 1 => 24 | XDZ = 24 + 4 + 26 = 51
+NMA = 14 + 13 + 1 => 25 | FRZ = 6 + 18 + 26 = 47
+VXA = 22 + 24 + 1 => 44 | LHZ = 12 + 8 + 26 = 43
+PXA = 16 + 24 + 1 => 47 | JFZ = 10 + 6 + 26 = 39
+
+
+DVA => FRZ --> D: 3 => F: 5 | V: 21 => R: 17
+DVA => XDZ --> D: 3 => X: 23 | V: 21 => D: 3
+DVA => JFZ --> D: 3 => J: 9 | V: 21 => F: 5
+DVA => TNZ --> D: 3 => T: 19 | V: 21 => N: 13
+DVA => LHZ --> D: 3 => L: 11 | V: 21 => H: 7
