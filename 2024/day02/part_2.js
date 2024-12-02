@@ -20,10 +20,6 @@ function getOrdering(n, m) {
 function isValid(report) {
 	let firstOrdering = getOrdering(report[0], report[1])
 
-	if (firstOrdering === 0) {
-		return false
-	}
-
 	for (let i = 0; i < report.length - 1; i++) {
 		const currentOrdering = getOrdering(report[i], report[i + 1])
 		const diff = Math.max(report[i], report[i + 1]) - Math.min(report[i], report[i + 1])
