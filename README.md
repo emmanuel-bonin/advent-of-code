@@ -39,4 +39,4 @@ As I already did JS twice, 23 languages remain.
 - [ ] MATLAB
 - [ ] Elixir
 - [ ] Shell (Bash)
-- [ ] SQL
+- [x] SQL
