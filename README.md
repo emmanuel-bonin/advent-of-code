@@ -13,11 +13,9 @@ Could not resolve every puzzles, but I tried to do as much as I could.
 
 ## 2024
 
-Will try to do 1 language per day (will be JS, TS or Python if I struggle too much).
+Will try use several languages through the journey.
 
-As I already did JS twice, 23 languages remain.
-
-- [ ] Python
+- [x] Python
 - [x] JavaScript
 - [ ] TypeScript
 - [ ] C
@@ -25,18 +23,11 @@ As I already did JS twice, 23 languages remain.
 - [ ] Go (Golang)
 - [ ] PHP
 - [ ] Java
-- [ ] C#
 - [ ] Ruby
-- [ ] Swift
-- [ ] Kotlin
 - [ ] Rust
 - [ ] R
 - [ ] Dart
 - [ ] Perl
-- [ ] Scala
-- [ ] Haskell
-- [ ] Lua
 - [ ] MATLAB
-- [ ] Elixir
 - [ ] Shell (Bash)
 - [x] SQL
