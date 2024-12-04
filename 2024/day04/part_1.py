@@ -8,41 +8,19 @@ for line in lines:
   for i in range(len(line.split())):
     grid.append(line.split()[i])
 
-def find_vectors(grid, i, j, letter, direction):
-  next_letter = 'M' if letter == 'X' else 'A' if letter == 'M' else 'S' if letter == 'A' else ''
-
-  # we found the last letter
-  if next_letter == '':
-    return 1
-
-  if direction == 0 and i > 0 and j > 0 and grid[i-1][j-1] == next_letter:
-    return find_vectors(grid, i-1, j-1, next_letter, direction)
-  elif direction == 1 and i > 0 and grid[i-1][j] == next_letter:
-    return find_vectors(grid, i-1, j, next_letter, direction)
-  elif direction == 2 and i > 0 and j < len(grid[i]) - 1 and grid[i-1][j+1] == next_letter:
-    return find_vectors(grid, i-1, j+1, next_letter, direction)
-  elif direction == 3 and j > 0 and grid[i][j-1] == next_letter:
-    return find_vectors(grid, i, j-1, next_letter, direction)
-  elif direction == 4 and j < len(grid[i]) - 1 and grid[i][j+1] == next_letter:
-    return find_vectors(grid, i, j+1, next_letter, direction)
-  elif direction == 5 and i < len(grid) - 1 and j > 0 and grid[i+1][j-1] == next_letter:
-    return find_vectors(grid, i+1, j-1, next_letter, direction)
-  elif direction == 6 and i < len(grid) - 1 and grid[i+1][j] == next_letter:
-    return find_vectors(grid, i+1, j, next_letter, direction)
-  elif direction == 7 and i < len(grid) - 1 and j < len(grid[i]) - 1 and grid[i+1][j+1] == next_letter:
-    return find_vectors(grid, i+1, j+1, next_letter, direction)
-  return 0
+def count_xmas_in_direction(grid, i, j, direction):
+  return ((1 if i>2 and j>2 and grid[i-1][j-1] == 'M' and grid[i-2][j-2] == 'A' and grid[i-3][j-3] == 'S' else 0) +
+         (1 if i>2 and grid[i-1][j] == 'M' and grid[i-2][j] == 'A' and grid[i-3][j] == 'S' else 0) +
+         (1 if i>2 and j<len(grid[i])-3 and grid[i-1][j+1] == 'M' and grid[i-2][j+2] == 'A' and grid[i-3][j+3] == 'S' else 0) +
+         (1 if j>2 and grid[i][j-1] == 'M' and grid[i][j-2] == 'A' and grid[i][j-3] == 'S' else 0) +
+         (1 if j<len(grid[i])-3 and grid[i][j+1] == 'M' and grid[i][j+2] == 'A' and grid[i][j+3] == 'S' else 0) +
+         (1 if i<len(grid)-3 and j>2 and grid[i+1][j-1] == 'M' and grid[i+2][j-2] == 'A' and grid[i+3][j-3] == 'S' else 0) +
+         (1 if i<len(grid)-3 and grid[i+1][j] == 'M' and grid[i+2][j] == 'A' and grid[i+3][j] == 'S' else 0) +
+         (1 if i<len(grid)-3 and j<len(grid[i])-3 and grid[i+1][j+1] == 'M' and grid[i+2][j+2] == 'A' and grid[i+3][j+3] == 'S' else 0))
 
 result = 0
 for i in range(len(grid)):
   for j in range(len(grid[i])):
     if grid[i][j] == 'X':
-      result += find_vectors(grid, i, j, 'X', 0)
-      result += find_vectors(grid, i, j, 'X', 1)
-      result += find_vectors(grid, i, j, 'X', 2)
-      result += find_vectors(grid, i, j, 'X', 3)
-      result += find_vectors(grid, i, j, 'X', 4)
-      result += find_vectors(grid, i, j, 'X', 5)
-      result += find_vectors(grid, i, j, 'X', 6)
-      result += find_vectors(grid, i, j, 'X', 7)
+      result += count_xmas_in_direction(grid, i, j, 'X')
 print(result)
