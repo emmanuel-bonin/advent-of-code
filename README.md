@@ -18,7 +18,7 @@ Will try use several languages through the journey.
 - [x] Python
 - [x] JavaScript
 - [ ] TypeScript
-- [ ] C
+- [x] C
 - [ ] C++
 - [ ] Go (Golang)
 - [ ] PHP
