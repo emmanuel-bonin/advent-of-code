@@ -150,6 +150,7 @@ int main() {
         if (is_valid(update_seq, page_orders)) {
           result += update_seq[nb_pages / 2];
         }
+        free(update_seq);
       }
     }
   }
@@ -159,5 +160,9 @@ int main() {
 
   printf("%d\n", result);
 
+  for (int i = 0; i < 1000; i++) {
+    free(page_orders[i]);
+  }
+  free(page_orders);
   return 0;
 }

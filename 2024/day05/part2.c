@@ -131,6 +131,7 @@ void moveBefore(int *arr, int idxToMove, int targetIdx) {
   }
   new[targetIdx] = arr[idxToMove];
   memcpy(arr, new, 1000 * sizeof(*new));
+  free(new);
 }
 
 int *generate_new_seq(int *seq, int **page_orders) {
@@ -197,6 +198,7 @@ int main() {
           }
           result += new_seq[nb_pages / 2];
         }
+        free(update_seq);
       }
     }
   }
@@ -204,5 +206,9 @@ int main() {
 
   printf("%d\n", result);
 
+  for (int i = 0; i < 1000; i++) {
+    free(page_orders[i]);
+  }
+  free(page_orders);
   return 0;
 }
