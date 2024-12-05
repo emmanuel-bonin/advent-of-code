@@ -4,11 +4,6 @@
 
 #define FILENAME "input.txt"
 
-typedef struct s_page_order {
-  int page;
-  int order[100];
-} t_page_order;
-
 int is_page_order_line(char *line) {
   int len = strlen(line);
 
