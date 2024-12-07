@@ -7,7 +7,7 @@ Will try use several languages through the journey.
 - [ ] TypeScript
 - [x] C
 - [x] C++
-- [ ] Go (Golang)
+- [x] Go (Golang)
 - [ ] PHP
 - [ ] Java
 - [ ] Ruby
