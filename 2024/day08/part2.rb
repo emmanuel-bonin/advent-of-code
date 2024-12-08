@@ -87,10 +87,10 @@ antennas.each {
     # Create antinode at position of current antenna
     create_antinode(a.x, a.y, max_x, max_y, antinodes)
 
-    # Create antinodes in line between current antenna and other antennas
+    # Create antinodes in line before current antenna
     create_antinodes_in_line(a, o, max_x, max_y, antinodes)
 
-    # Create antinodes in line between other antenna and current antenna
+    # Create antinodes in line after other found antenna
     create_antinodes_in_line(o, a, max_x, max_y, antinodes)
   }
 }
