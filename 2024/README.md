@@ -10,7 +10,7 @@ Will try use several languages through the journey.
 - [x] Go (Golang)
 - [ ] PHP
 - [ ] Java
-- [ ] Ruby
+- [x] Ruby
 - [ ] Rust
 - [ ] R
 - [ ] Dart
