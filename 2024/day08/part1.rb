@@ -3,25 +3,25 @@ class Node
   @y = 0
   @type = ''
 
-  def self.x
-    @x
-  end
   def x
     @x
   end
-
-  def self.y
-    @y
+  def x=(value)
+    @x = value
   end
+
   def y
     @y
   end
-
-  def self.type
-    @type
+  def y=(value)
+    @y = value
   end
+
   def type
     @type
+  end
+  def type=(value)
+    @type = value
   end
 end
 
@@ -37,9 +37,9 @@ File.readlines('input.txt', chomp: true).each do |line|
     if (c != '.')
     then
       antenna = Node.new
-      antenna.instance_variable_set('@x', x)
-      antenna.instance_variable_set('@y', y)
-      antenna.instance_variable_set('@type', c)
+      antenna.x = x
+      antenna.y = y
+      antenna.type = c
       antennas.push(antenna)
     end
     x = x + 1
@@ -52,9 +52,9 @@ max_y = y
 
 def create_antinode(x, y, max_x, max_y, antinodes)
   antinode = Node.new
-  antinode.instance_variable_set('@x', x)
-  antinode.instance_variable_set('@y', y)
-  antinode.instance_variable_set('@type', '#')
+  antinode.x = x
+  antinode.y = y
+  antinode.type = '#'
 
   if antinode.x >= 0 && antinode.x < max_x && antinode.y >= 0 && antinode.y < max_y
   then
