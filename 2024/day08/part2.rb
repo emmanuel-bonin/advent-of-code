@@ -50,6 +50,33 @@ end
 
 max_y = y
 
+def create_antinode(x, y, max_x, max_y, antinodes)
+  antinode = Node.new
+  antinode.instance_variable_set('@x', x)
+  antinode.instance_variable_set('@y', y)
+  antinode.instance_variable_set('@type', '#')
+  if antinode.x >= 0 && antinode.x < max_x && antinode.y >= 0 && antinode.y < max_y
+  then
+    existing_antinode = antinodes.find {|an| an.x == antinode.x && an.y == antinode.y }
+    if existing_antinode == nil
+    then
+      antinodes.push(antinode)
+    end
+  end
+end
+
+def create_antinodes_in_line(a, b, max_x, max_y, antinodes)
+  diffx = a.x - b.x
+  diffy = a.y - b.y
+  an_x = a.x + diffx
+  an_y = a.y + diffy
+  while (an_x >= 0 && an_x < max_x && an_y >= 0 && an_y < max_y)
+    create_antinode(an_x, an_y, max_x, max_y, antinodes)
+    an_x += diffx
+    an_y += diffy
+  end
+end
+
 antinodes = []
 antennas.each {
   |a|
@@ -57,66 +84,14 @@ antennas.each {
   others.each {
     |o|
 
-    antinode_antenna_1 = Node.new
-    antinode_antenna_1.instance_variable_set('@x', a.x)
-    antinode_antenna_1.instance_variable_set('@y', a.y)
-    antinode_antenna_1.instance_variable_set('@type', '#')
-    existing_antinode_antenna_1 = antinodes.find {|an| an.x == antinode_antenna_1.x && an.y == antinode_antenna_1.y }
-    if existing_antinode_antenna_1 == nil
-    then
-      antinodes.push(antinode_antenna_1)
-    end
-    antinode_antenna_2 = Node.new
-    antinode_antenna_2.instance_variable_set('@x', a.x)
-    antinode_antenna_2.instance_variable_set('@y', a.y)
-    antinode_antenna_2.instance_variable_set('@type', '#')
-    existing_antinode_antenna_2 = antinodes.find {|an| an.x == antinode_antenna_2.x && an.y == antinode_antenna_2.y }
-    if existing_antinode_antenna_2 == nil
-    then
-      antinodes.push(antinode_antenna_2)
-    end
+    # Create antinode at position of current antenna
+    create_antinode(a.x, a.y, max_x, max_y, antinodes)
 
-    diffx = a.x - o.x
-    diffy = a.y - o.y
-    an_x = a.x + diffx
-    an_y = a.y + diffy
-    while (an_x >= 0 && an_x < max_x && an_y >= 0 && an_y < max_y)
-      antinode = Node.new
-      antinode.instance_variable_set('@x', an_x)
-      antinode.instance_variable_set('@y', an_y)
-      antinode.instance_variable_set('@type', '#')
-      if antinode.x >= 0 && antinode.x < max_x && antinode.y >= 0 && antinode.y < max_y
-      then
-        existing_antinode = antinodes.find {|an| an.x == antinode.x && an.y == antinode.y }
-        if existing_antinode == nil
-        then
-          antinodes.push(antinode)
-        end
-      end
-      an_x += diffx
-      an_y += diffy
-    end
+    # Create antinodes in line between current antenna and other antennas
+    create_antinodes_in_line(a, o, max_x, max_y, antinodes)
 
-    diffx = o.x - a.x
-    diffy = o.y - a.y
-    an_x = o.x + diffx
-    an_y = o.y + diffy
-    while (an_x >= 0 && an_x < max_x && an_y >= 0 && an_y < max_y)
-      antinode = Node.new
-      antinode.instance_variable_set('@x', an_x)
-      antinode.instance_variable_set('@y', an_y)
-      antinode.instance_variable_set('@type', '#')
-      if antinode.x >= 0 && antinode.x < max_x && antinode.y >= 0 && antinode.y < max_y
-      then
-        existing_antinode = antinodes.find {|an| an.x == antinode.x && an.y == antinode.y }
-        if existing_antinode == nil
-        then
-          antinodes.push(antinode)
-        end
-      end
-      an_x += diffx
-      an_y += diffy
-    end
+    # Create antinodes in line between other antenna and current antenna
+    create_antinodes_in_line(o, a, max_x, max_y, antinodes)
   }
 }
 

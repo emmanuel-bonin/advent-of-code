@@ -50,39 +50,30 @@ end
 
 max_y = y
 
+def create_antinode(x, y, max_x, max_y, antinodes)
+  antinode = Node.new
+  antinode.instance_variable_set('@x', x)
+  antinode.instance_variable_set('@y', y)
+  antinode.instance_variable_set('@type', '#')
+
+  if antinode.x >= 0 && antinode.x < max_x && antinode.y >= 0 && antinode.y < max_y
+  then
+    existing_antinode = antinodes.find {|an| an.x == antinode.x && an.y == antinode.y }
+    if existing_antinode == nil
+    then
+      antinodes.push(antinode)
+    end
+  end
+end
+
 antinodes = []
 antennas.each {
   |a|
   others = antennas.select {|e| e.type == a.type && (e.x != a.x || e.y != a.y)}
   others.each {
     |o|
-    antinode1 = Node.new
-    antinode2 = Node.new
-
-    antinode1.instance_variable_set('@x', a.x + (a.x - o.x))
-    antinode1.instance_variable_set('@y', a.y + (a.y - o.y))
-    antinode1.instance_variable_set('@type', '#')
-
-    antinode2.instance_variable_set('@x', o.x + (o.x - a.x))
-    antinode2.instance_variable_set('@y', o.y + (o.y - a.y))
-    antinode2.instance_variable_set('@type', '#')
-
-    if antinode1.x >= 0 && antinode1.x < max_x && antinode1.y >= 0 && antinode1.y < max_y
-    then
-      existing_antinode1 = antinodes.find {|an| an.x == antinode1.x && an.y == antinode1.y }
-      if existing_antinode1 == nil
-      then
-        antinodes.push(antinode1)
-      end
-    end
-    if antinode2.x >= 0 && antinode2.x < max_x && antinode2.y >= 0 && antinode2.y < max_y
-    then
-      existing_antinode2 = antinodes.find {|an| an.x == antinode2.x && an.y == antinode2.y }
-      if existing_antinode2 == nil
-      then
-        antinodes.push(antinode2)
-      end
-    end
+    create_antinode(a.x + (a.x - o.x), a.y + (a.y - o.y), max_x, max_y, antinodes)
+    create_antinode(o.x + (o.x - a.x), o.y + (o.y - a.y), max_x, max_y, antinodes)
   }
 }
 
