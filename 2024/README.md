@@ -5,6 +5,7 @@ Will try use several languages through the journey.
 - [x] Python
 - [x] JavaScript
 - [ ] TypeScript
+- [ ] CoffeeScript
 - [x] C
 - [x] C++
 - [x] Go (Golang)
@@ -14,7 +15,7 @@ Will try use several languages through the journey.
 - [ ] Rust
 - [ ] R
 - [ ] Dart
-- [ ] Perl
+- [x] Perl
 - [ ] MATLAB
 - [ ] Shell (Bash)
 - [x] SQL
