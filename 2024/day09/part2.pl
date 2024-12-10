@@ -48,16 +48,6 @@ sub find_free_space_index_of_size($) {
     return -1;
 }
 
-sub find_free_space_index_before_start($) {
-    my ($file_start) = @_;
-    for (my $i = 0; $i < scalar(@free_spaces); $i++) {
-        if ($free_spaces[$i]->{start} + $free_spaces[$i]->{length} + 1 == $file_start) {
-            return $i;
-        }
-    }
-    return -1;
-}
-
 @files = sort { $b->{id} <=> $a->{id} } @files;
 for (my $i = 0; $i < scalar(@files); $i++) {
     my $file = $files[$i];
