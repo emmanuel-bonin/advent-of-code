@@ -19,7 +19,8 @@ Will try use several languages through the journey.
   - [day08](./day08)
 - [x] Perl
   - [day09](./day09)
-- [ ] TypeScript
+- [x] TypeScript
+  - [day10](./day10)
 - [ ] CoffeeScript
 - [ ] PHP
 - [ ] Java
