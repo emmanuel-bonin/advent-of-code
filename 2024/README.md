@@ -2,7 +2,7 @@
 
 Will try use several languages through the journey.
 
-- [x] JavaScript
+- [x] Vanilla JavaScript
     - [day01](./day01)
     - [day02](./day02)
 - [x] SQL
