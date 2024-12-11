@@ -36,14 +36,6 @@ def blink(n, times):
       n = str(int(n) * 2024)
   return res
 
-# Precompute all the numbers from 0 to 999 with 20 blinks
-for i in range(1000):
-  for j in range(20):
-    a = blink(str(i), j)
-    if str(i) not in map:
-      map[str(i)] = {}
-    map[str(i)][j] = a
-
 N_BLINKS = 75
 result = 0
 for i in range(len(data)):
