@@ -10,7 +10,7 @@ def trim_leading(num):
     return '0'
   return res
 
-# Map containing the number computed for each number and times
+# Map containing the result computed for each number and times
 map = {}
 
 def blink(n, times):
