@@ -28,9 +28,6 @@ createMap = (c, lines, i, j, currentMap) ->
       createMap(lines[i][j-1], lines, i, j-1, currentMap)
   return currentMap
 
-genKey = (i, j) ->
-  return i+','+j
-
 inMap = (map, x, y) ->
   return map.find((e) => e[0] is y and e[1] is x)
 
