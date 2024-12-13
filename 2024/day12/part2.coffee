@@ -37,18 +37,18 @@ inMap = (map, x, y) ->
 computeCorner = (corners, map, i) ->
   y = map[i][0]
   x = map[i][1]
-  key1 = genKey(y+.5, x+.5)
-  key2 = genKey(y-.5, x+.5)
-  key3 = genKey(y+.5, x-.5)
-  key4 = genKey(y-.5, x-.5)
-  if !corners.includes(key1)
-    corners.push key1
-  if !corners.includes(key2)
-    corners.push key2
-  if !corners.includes(key3)
-    corners.push key3
-  if !corners.includes(key4)
-    corners.push key4
+  [y1, x1] = [y+.5, x+.5]
+  [y2, x2] = [y-.5, x+.5]
+  [y3, x3] = [y+.5, x-.5]
+  [y4, x4] = [y-.5, x-.5]
+  if !corners.find (e) => e[0] == y1 && e[1] == x1
+    corners.push [y1, x1]
+  if !corners.find (e) => e[0] == y2 && e[1] == x2
+    corners.push [y2, x2]
+  if !corners.find (e) => e[0] == y3 && e[1] == x3
+    corners.push [y3, x3]
+  if !corners.find (e) => e[0] == y4 && e[1] == x4
+    corners.push [y4, x4]
 
 computeMap = (map) ->
   sides = 0
@@ -56,16 +56,17 @@ computeMap = (map) ->
   for i in [0...map.length]
     computeCorner(corners, map, i)
   cornerPos = Object.values(corners)
-  for i in [0...cornerPos.length]
-    pos = cornerPos[i].split(',').map parseFloat
+  for i in [0...corners.length]
+    pos = corners[i]
+    [y, x] = pos
 
     # x1y1 | x3y3
     # -----o-----
     # x2y2 | x4y4
-    [y1, x1] = [Number(pos[0]-.5), Number(pos[1]-.5)]
-    [y2, x2] = [Number(pos[0]+.5), Number(pos[1]-.5)]
-    [y3, x3] = [Number(pos[0]-.5), Number(pos[1]+.5)]
-    [y4, x4] = [Number(pos[0]+.5), Number(pos[1]+.5)]
+    [y1, x1] = [y-.5, x-.5]
+    [y2, x2] = [y+.5, x-.5]
+    [y3, x3] = [y-.5, x+.5]
+    [y4, x4] = [y+.5, x+.5]
     in1 = inMap(map, x1, y1)
     in2 = inMap(map, x2, y2)
     in3 = inMap(map, x3, y3)
