@@ -34,38 +34,26 @@ genKey = (i, j) ->
 inMap = (map, x, y) ->
   return map.find((e) => e[0] is y and e[1] is x)
 
-computeCorner = (corners, map, i) ->
-  y = map[i][0]
-  x = map[i][1]
-  [y1, x1] = [y+.5, x+.5]
-  [y2, x2] = [y-.5, x+.5]
-  [y3, x3] = [y+.5, x-.5]
-  [y4, x4] = [y-.5, x-.5]
-  corners.push [y1, x1] if !corners.find (e) => e[0] is y1 and e[1] is x1
-  corners.push [y2, x2] if !corners.find (e) => e[0] is y2 and e[1] is x2
-  corners.push [y3, x3] if !corners.find (e) => e[0] is y3 and e[1] is x3
-  corners.push [y4, x4] if !corners.find (e) => e[0] is y4 and e[1] is x4
+computeCorners = (map) ->
+  corners = []
+  for i in [0...map.length]
+    corners.push [map[i][0]+.5, map[i][1]+.5] if !corners.find (e) => e[0] is map[i][0]+.5 and e[1] is map[i][1]+.5
+    corners.push [map[i][0]-.5, map[i][1]+.5] if !corners.find (e) => e[0] is map[i][0]-.5 and e[1] is map[i][1]+.5
+    corners.push [map[i][0]+.5, map[i][1]-.5] if !corners.find (e) => e[0] is map[i][0]+.5 and e[1] is map[i][1]-.5
+    corners.push [map[i][0]-.5, map[i][1]-.5] if !corners.find (e) => e[0] is map[i][0]-.5 and e[1] is map[i][1]-.5
+  return corners
 
 computeMap = (map) ->
   sides = 0
-  corners = []
-  for i in [0...map.length]
-    computeCorner(corners, map, i)
+  corners = computeCorners(map)
   for i in [0...corners.length]
     pos = corners[i]
     [y, x] = pos
 
-    # x1y1 | x3y3
-    # -----o-----
-    # x2y2 | x4y4
-    [y1, x1] = [y-.5, x-.5]
-    [y2, x2] = [y+.5, x-.5]
-    [y3, x3] = [y-.5, x+.5]
-    [y4, x4] = [y+.5, x+.5]
-    in1 = inMap(map, x1, y1)
-    in2 = inMap(map, x2, y2)
-    in3 = inMap(map, x3, y3)
-    in4 = inMap(map, x4, y4)
+    in1 = inMap(map, x-.5, y-.5)
+    in2 = inMap(map, x-.5, y+.5)
+    in3 = inMap(map, x+.5, y-.5)
+    in4 = inMap(map, x+.5, y+.5)
 
     sides += if (in1 and in2 and in3 and not in4) or
       # is an inside corner
