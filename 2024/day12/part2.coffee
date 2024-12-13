@@ -52,12 +52,12 @@ computeMap = (map) ->
     in3 = inMap(map, x+.5, y-.5)
     in4 = inMap(map, x+.5, y+.5)
 
+    # is an inside corner
     sides += if (in1 and in2 and in3 and not in4) or
-      # is an inside corner
       (in1 and in2 and not in3 and in4) or
       (in1 and not in2 and in3 and in4) or
       (not in1 and in2 and in3 and in4) or
-      # is a simple corner
+    # is a simple corner
       (in1 and not in2 and not in3 and not in4) or
       (not in1 and in2 and not in3 and not in4) or
       (not in1 and not in2 and in3 and not in4) or
