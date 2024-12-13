@@ -1,0 +1,15 @@
+{
+  "name": "aoc-2024",
+  "version": "1.0.0",
+  "description": "Will try use several languages through the journey.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node cli.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7"
+  }
+}
