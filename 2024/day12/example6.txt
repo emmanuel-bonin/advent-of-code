@@ -1,0 +1,17 @@
+LFFFF
+FFFFF
+FLFFF
+LFFFF
+LLLLL
+
+a-b-c-d-e-f
+|L|F|F|F|F|
+g-h-i-j-k-l
+|F|F|F|F|F|
+m-n-o-p-q-r
+|F|L|F|F|F|
+s-t-u-v-w-x
+|L|F|F|F|F|
+y-z-A-B-C-D
+|L|L|L|L|L|
+E-F-G-H-I-J

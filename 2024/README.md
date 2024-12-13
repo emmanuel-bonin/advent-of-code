@@ -22,7 +22,8 @@ Will try use several languages through the journey.
   - [day09](./day09)
 - [x] TypeScript
   - [day10](./day10)
-- [ ] CoffeeScript
+- [x] CoffeeScript
+  - [day12](./day12)
 - [ ] PHP
 - [ ] Java
 - [ ] Rust
