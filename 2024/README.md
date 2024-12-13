@@ -10,6 +10,7 @@ Will try use several languages through the journey.
 - [x] Python
   - [day04](./day04)
   - [day11](./day11)
+  - [day13](./day13)
 - [x] C
   - [day05](./day05)
 - [x] C++
