@@ -1,5 +1,4 @@
 import * as fs from 'fs'
-import * as readline from 'node:readline'
 
 type Case = {
 	x: number
@@ -81,23 +80,17 @@ function debug(input: InputConfig, createFile = false, move?: string) {
 			const robot = input.robot.x === x && input.robot.y === y
 
 			if (wall) {
-				// process.stdout.write('#')
 				buffer += '#'
 			} else if (box1) {
-				// process.stdout.write('[')
 				buffer += '['
 			} else if (box2) {
-				// process.stdout.write(']')
 				buffer += ']'
 			} else if (robot) {
-				// process.stdout.write(move ?? '@')
 				buffer += move ?? '@'
 			} else {
-				// process.stdout.write('.')
 				buffer += '.'
 			}
 		}
-		// process.stdout.write('\n')
 		buffer += '\n'
 	}
 	if (createFile) {
@@ -105,7 +98,6 @@ function debug(input: InputConfig, createFile = false, move?: string) {
 	} else {
 		console.log(buffer)
 	}
-	// process.stdout.write('\n')
 }
 
 function moveBox(item: Box, dirX: number, dirY: number, walls: Case[], boxes: Box[], operate = true) {
