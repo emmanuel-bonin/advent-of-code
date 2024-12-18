@@ -12,6 +12,7 @@ Will try use several languages through the journey.
   - [day11](./day11)
   - [day13](./day13)
   - [day14](./day14)
+  - [day18](./day18)
 - [x] C
   - [day05](./day05)
 - [x] C++
