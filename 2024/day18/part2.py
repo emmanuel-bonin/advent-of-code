@@ -56,7 +56,6 @@ def print_map(matrix, path=None):
 
 finished = False
 while not finished:
-#   finished = True
   x, y = lines[config['n_bytes']-1].strip('\n').split(',')
   x = int(x)
   y = int(y)
