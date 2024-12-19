@@ -112,7 +112,7 @@ while rerun is True:
     old_x = x
     old_y = y
 #   print(len(matrices), result)
-  if result < final_result:x
+  if result < final_result:
     final_result = result
     print('=>', final_result)
     final_path = path
