@@ -10,6 +10,10 @@ class Processor {
 		this._registers = registers
 	}
 
+	get registers(): Record<string, number> {
+		return this._registers
+	}
+
 	private _parseComboOperand(operand: Omit<BitValue, '7'>): number {
 		if (operand === '0' || operand === '1' || operand === '2' || operand === '3') {
 			return parseInt(operand as string)
@@ -105,60 +109,35 @@ class Processor {
 type BitValue = '0' | '1' | '2' | '3' | '4' | '5' | '6' | '7'
 
 (async () => {
-	const lines = fs.readFileSync('example.txt', 'utf8').split('\n')
+	const lines = fs.readFileSync('input.txt', 'utf8').split('\n')
 	let opSequence: string[] = []
 	let opSequenceRaw: string = ''
 
 	for (const line of lines) {
-if (line.startsWith('Program:')) {
+		if (line.startsWith('Program:')) {
 			opSequence = line.split(' ')[1].split(',')
 			opSequenceRaw = line.split(' ')[1]
 		}
 	}
 
-	// Every 8 iterations, it adds 10
-	// wanted number is 2416754417035530
-                     //2251799813685248
-	//
-	// in example, we need 117440 iterations to reach 035430
-	// Every 64, 512, 4096, ... the length increases starting with a 0
-
-	let currentA = 0
-	let resultNum = Number(opSequence.join(''))
-	let result = 0
-	let resultStr = ''
-	let pow = 0
-	while (resultStr !== opSequenceRaw) {
+	let a = 0
+	while (true) {
 		const processor = new Processor({
-			A: currentA,
+			A: a,
 			B: 0,
 			C: 0,
 		})
 		processor.execute(opSequence)
-		resultStr = processor.output()
-		if (parseInt(resultStr.split(',')[0]) === resultNum % 10) {
-			console.log('For register A =', currentA, 'Output:', resultStr, parseInt(resultStr.split(',')[0]))
-			resultNum = Math.floor(resultNum / 10)
-			result += currentA * Math.pow(8, pow)
-			pow++
-			if (resultNum === 0) {
-				break
-			}
-			console.log('new result num', resultNum)
-		}
-		// 	result = `${result.split(',')[0]}${result}`
-		// 	resultNum = Math.floor(resultNum / 10)
-		// 	currentA = currentA * 64 + parseInt(result.split(',')[0]) * 8
-		// } else {
-			currentA++
-		// }
+		console.log('For A =', a, '=>', processor.output())
+		a++
 	}
-	console.log(result)
-})()
 
-// let n = 2416754417035530
-// let result = 0
-// while (n > 0) {
-// 	console.log((n%10)*8)
-// 	n = Math.floor(n/10)
-// }
+	// This works only with the example sequence
+	// let currentA = 0
+	// const num = opSequenceRaw.split(',').map(Number)
+	// for (let i = num.length; i > 0; i--) {
+	// 	currentA += num[i-1] * Math.pow(8, i)
+	// 	console.log('Current A +=', num[i-1], '*', 8, '^', i, '=', num[i-1] * Math.pow(8, i))
+	// }
+	// console.log(currentA)
+})()
