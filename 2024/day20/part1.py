@@ -1,4 +1,3 @@
-from threading import Thread
 import numpy as np
 
 from pathfinding.core.diagonal_movement import DiagonalMovement
@@ -41,17 +40,7 @@ while not finished:
     matrix.append([])
     for x in range(len(map[y])):
       if map[y][x] == '#':
-        if (not cheated and (y > 0 and y < len(map)-1 and x > 0 and x < len(map[y])-1) and
-            str(x)+'_'+str(y) not in cache #and
-#             (
-#               (map[y][x+1] == '.' and map[y][x-1] == '.' and map[y+1][x] == '#' and map[y-1][x] == '#') or
-#               (map[y][x+1] == '#' and map[y][x-1] == '#' and map[y+1][x] == '.' and map[y-1][x] == '.')
-# #               (map[y][x+1] == '#' and map[y][x-1] == '.' and map[y+1][x] == '.' and map[y-1][x] == '.') or
-# #               (map[y][x+1] == '.' and map[y][x-1] == '#' and map[y+1][x] == '.' and map[y-1][x] == '.') or
-# #               (map[y][x+1] == '.' and map[y][x-1] == '.' and map[y+1][x] == '#' and map[y-1][x] == '.') or
-# #               (map[y][x+1] == '.' and map[y][x-1] == '.' and map[y+1][x] == '.' and map[y-1][x] == '#')
-#             )
-          ):
+        if (not cheated and (y > 0 and y < len(map)-1 and x > 0 and x < len(map[y])-1) and str(x)+'_'+str(y) not in cache):
           cache[str(x)+'_'+str(y)] = True
           matrix[y].append(1)
           finished = False
@@ -86,13 +75,4 @@ def resolve(_id, raw_matrices, initial_res, start_x, start_y, end_x, end_y):
     i += 1
   print('['+_id+'] Result:', n)
 
-resolve('main', raw_matrices, initial_res, start_x, start_y, end_x, end_y)
-# threads = []
-# nb_threads = 8
-# for i in range(nb_threads):
-#   t = Thread(target=resolve, args=(str(i), raw_matrices[i*len(raw_matrices)//nb_threads:(i+1)*len(raw_matrices)//nb_threads], initial_res, start_x, start_y, end_x, end_y))
-#   t.start()
-#   threads.append(t)
-#
-# for t in threads:
-#   t.join()
+resolve(raw_matrices, initial_res, start_x, start_y, end_x, end_y)
