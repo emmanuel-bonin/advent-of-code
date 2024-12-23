@@ -26,6 +26,7 @@ Will try use several languages through the journey.
 - [x] TypeScript
   - [day10](./day10)
   - [day15](./day15)
+  - [day23](./day23)
 - [x] CoffeeScript
   - [day12](./day12)
 - [ ] PHP
