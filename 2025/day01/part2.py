@@ -11,9 +11,8 @@ for line in lines:
         # we simply increase the number of times passing by 0
         # and subtract hundreds to the base number
         # to keep only the amount of times we should really turn
-        d = int(abs(n) / 100)
-        res += d
-        n -= d * 100
+        res += int(abs(n) / 100)
+        n %= 100
     if line[0] == "L":
         # This condition handles a passing by zero
         if dial_pos - n < 0:

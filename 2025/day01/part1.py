@@ -7,15 +7,11 @@ res = 0
 for line in lines:
     n = int(line[1:])
     if n >= 100:
-        n -= int(abs(n) / 100) * 100
+        n %= 100
     if line[0] == "L":
-        dial_pos -= n
+        dial_pos = dial_pos - n + 100 if dial_pos - n < 0 else dial_pos - n
     elif line[0] == "R":
-        dial_pos += n
-    if dial_pos < 0:
-        dial_pos += 100
-    elif dial_pos > 99:
-        dial_pos -= 100
+        dial_pos = dial_pos + n - 100 if dial_pos + n > 99 else dial_pos + n
     if dial_pos == 0:
         res += 1
 
