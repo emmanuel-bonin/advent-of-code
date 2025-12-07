@@ -28,6 +28,13 @@ def get_wider_interval(arr):
             wider = elem
     return wider
 
+def count_spaces(s):
+    cpt = 0
+    for elem in s:
+        if elem[0] == ' ':
+            cpt += 1
+    return cpt
+
 operators = lines.pop().split(' ')
 finished = False
 while not finished:
@@ -62,13 +69,6 @@ while not finished:
         lines[i] = lines[i][:wider[0]] + lines[i][wider[1]:]
         i += 1
     numbers.append(cur_nums)
-
-def count_spaces(s):
-    cpt = 0
-    for elem in s:
-        if elem[0] == ' ':
-            cpt += 1
-    return cpt
 
 res = 0
 k = len(operators)-1
