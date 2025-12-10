@@ -1,5 +1,6 @@
 f = open("input.txt", "r")
 lines = [line.strip() for line in f.readlines()]
+f.close()
 
 ops = []
 for line in lines:

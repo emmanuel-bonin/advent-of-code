@@ -1,6 +1,7 @@
 input_file = open("./input.txt", "r")
 ranges_str = input_file.readlines()[0]
 ranges = ranges_str[:-1].split(",")
+input_file.close()
 
 # Find for a given number, all the divisors of a number that result in an even number
 # Uses a small cache system that prevents useless computing.

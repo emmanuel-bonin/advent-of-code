@@ -1,5 +1,6 @@
 input_file = open("./input.txt", "r")
 lines = input_file.readlines()
+input_file.close()
 
 dial_pos = 50
 res = 0

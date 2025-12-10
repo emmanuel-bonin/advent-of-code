@@ -1,5 +1,6 @@
 f = open('input.txt', 'r')
 lines = f.readlines()
+f.close()
 
 def get_greater_num_idx(s):
     cur = 0

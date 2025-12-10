@@ -1,6 +1,7 @@
 input_file = open("./input.txt", "r")
 ranges_str = input_file.readlines()[0]
 ranges = ranges_str[:-1].split(",")
+input_file.close()
 
 def is_invalid(n):
     s = str(n)

@@ -2,6 +2,7 @@ import math
 
 f = open("input.txt", "r")
 lines = [line.replace('\n', '') for line in f.readlines()]
+f.close()
 
 def compute_indexes(s):
     i = 0

@@ -1,5 +1,6 @@
 f = open('input.txt', 'r')
 lines = [line.strip() for line in f.readlines()]
+f.close()
 
 largest_area = 0
 for i, _ in enumerate(lines):

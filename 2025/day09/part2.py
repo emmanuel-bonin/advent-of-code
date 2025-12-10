@@ -4,6 +4,7 @@ from threading import Thread
 
 f = open('example.txt', 'r')
 lines = [line.strip() for line in f.readlines()]
+f.close()
 
 # class ThreadWithReturnValue(Thread):
 #     def __init__(

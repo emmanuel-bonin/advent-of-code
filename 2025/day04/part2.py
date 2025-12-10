@@ -1,5 +1,6 @@
 f = open("input.txt", "r")
 lines = [line.strip() for line in f.readlines()]
+f.close()
 
 def count_nearby_rolls(_lines: list[str], _x: int, _y: int):
     max_x = len(_lines[0])-1
