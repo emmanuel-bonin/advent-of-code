@@ -1,26 +1,8 @@
 import math
-from threading import Thread
-# import time
 
-f = open('example.txt', 'r')
+f = open('input.txt', 'r')
 lines = [line.strip() for line in f.readlines()]
 f.close()
-
-# class ThreadWithReturnValue(Thread):
-#     def __init__(
-#         self, group=None, target=None, name=None, args=(), kwargs={}, Verbose=None
-#     ):
-#         Thread.__init__(self, group, target, name, args, kwargs)
-#         self._return = None
-#
-#     def run(self):
-#         if self._target is not None:
-#             self._return = self._target(*self._args, **self._kwargs)
-#
-#     def join(self, *args):
-#         Thread.join(self, *args)
-#         return self._return
-
 
 class Tile:
     def __init__(self, x, y, color='u'):
@@ -34,48 +16,55 @@ class Tile:
     def __hash__(self):
         return hash((self.x, self.y))
 
-tiles = set()
+# tiles = set()
+tiles = list()
 max_x = 0
 max_y = 0
 for i, _ in enumerate(lines):
     [x, y] = [int(s) for s in lines[i].split(',')]
-    tiles.add(Tile(x, y, 'r'))
+    # tiles.add(Tile(x, y, 'r'))
+    tiles.append(Tile(x, y, 'r'))
     if x > max_x:
         max_x = x
     if y > max_y:
         max_y = y
 
-def print_map():
+def print_map(map: list[Tile], others: list[Tile]):
     s = ''
     for y in range(max_y + 2):
         for x in range(max_x + 3):
             tile = Tile(x, y)
             found = False
-            for t in tiles:
-                if tile == t:
+            for o in others:
+                if o == tile:
                     found = True
-                    s += '#' if t.color == 'r' else 'X' if t.color == 'g' else ''
+                    s += "O"
+            if not found:
+                for t in map:
+                    if tile == t:
+                        found = True
+                        s += "#" if t.color == "r" else "X" if t.color == "g" else ""
             if not found:
                 s += '.'
         s += '\n'
     print(s)
 
 tiles_x_by_y = {}
-def inside_polygon(tile: Tile) -> bool:
-    cpt = 0
-    if tiles_x_by_y.get(tile.y) is None:
-        return False
-    listx = list(tiles_x_by_y.get(tile.y))
-    for _, x in enumerate(listx):
-        if x >= tile.x:
-            cpt += 1
-    return False if cpt % 2 == 0 else True
+# def inside_polygon(tile: Tile) -> bool:
+#     cpt = 0
+#     if tiles_x_by_y.get(tile.y) is None:
+#         return False
+#     listx = list(tiles_x_by_y.get(tile.y))
+#     for _, x in enumerate(listx):
+#         if x >= tile.x:
+#             cpt += 1
+#     return False if cpt % 2 == 0 else True
 
 def add_tiles_x_by_y(x, y):
     if tiles_x_by_y.get(y) is None:
         tiles_x_by_y[y] = set()
     tiles_x_by_y[y].add(x)
-#
+
 def find_adjacent_tiles(tile: Tile):
     adj = []
     for t in tiles:
@@ -133,13 +122,7 @@ def add_contour():
                     add_tiles_x_by_y(tile.x, y)
                     new_tiles.add(new_tile)
                     y -= 1
-    tiles.update(new_tiles)
-
-corner_tiles = list(tiles)
-
-print('adding contour...')
-add_contour()
-print('contour added. generating and checking rectangles in', len(tiles), 'tiles')
+    return new_tiles
 
 # cache = {}
 # def is_pos_in_polygon(x, y) -> bool:
@@ -170,44 +153,57 @@ print('contour added. generating and checking rectangles in', len(tiles), 'tiles
 #             return False
 #     return True
 
-def tile_in_polygon(point, polygon):
+cache = {}
+def tile_in_polygon(tile: Tile, polygon: list[Tile]):
+    if tile in cache:
+        return cache[tile]
     num_vertices = len(polygon)
-    x, y = point.x, point.y
+    x, y = tile.x, tile.y
     inside = False
 
-    # Store the first point in the polygon and initialize the second point
-    p1 = polygon[0]
+    # Store the first tile in the polygon and initialize the second tile
+    tile1 = polygon[0]
 
     # Loop through each edge in the polygon
     for i in range(1, num_vertices + 1):
-        # Get the next point in the polygon
-        p2 = polygon[i % num_vertices]
+        # Get the next tile in the polygon
+        tile2 = polygon[i % num_vertices]
 
-        # Check if the point is above the minimum y coordinate of the edge
-        if y > min(p1.y, p2.y):
-            # Check if the point is below the maximum y coordinate of the edge
-            if y <= max(p1.y, p2.y):
-                # Check if the point is to the left of the maximum x coordinate of the edge
-                if x <= max(p1.x, p2.x):
-                    # Calculate the x-intersection of the line connecting the point to the edge
-                    x_intersection = (y - p1.y) * (p2.x - p1.x) / (p2.y - p1.y) + p1.x
+        # Check if the tile is above the minimum y coordinate of the edge
+        if y > min(tile1.y, tile2.y):
+            # Check if the tile is below the maximum y coordinate of the edge
+            if y <= max(tile1.y, tile2.y):
+                # Check if the tile is to the left of the maximum x coordinate of the edge
+                if x <= max(tile1.x, tile2.x):
+                    # Calculate the x-intersection of the line connecting the tile to the edge
+                    x_intersection = (y - tile1.y) * (tile2.x - tile1.x) / (tile2.y - tile1.y) + tile1.x
 
-                    # Check if the point is on the same line as the edge or to the left of the x-intersection
-                    if p1.x == p2.x or x <= x_intersection:
+                    # Check if the tile is on the same line as the edge or to the left of the x-intersection
+                    if tile1.x == tile2.x or x <= x_intersection:
                         # Flip the inside flag
                         inside = not inside
 
-        # Store the current point as the first point for the next iteration
-        p1 = p2
+        # Store the current tile as the first tile for the next iteration
+        tile1 = tile2
 
     # Return the value of the inside flag
+    cache[tile] = inside
     return inside
 
+# corner_tiles = list(tiles)
+
+print('adding contour...')
+contour = add_contour()
+print('contour added. generating and checking rectangles in', len(tiles), 'tiles')
+
 largest_area = 0
-for i, t1 in enumerate(corner_tiles):
-    # print("generating rectangle for tiles i =", i, "/", len(corner_tiles), '=>', int(i/len(corner_tiles)*100), '%')
-    for j, t2 in enumerate(corner_tiles):
-        # print("generating rectangle", i*len(corner_tiles)+j, "/", len(corner_tiles)*(len(corner_tiles)-1), "=>", (i*len(corner_tiles)+j) / (len(corner_tiles)*(len(corner_tiles)-1)) * 100, "%")
+tiles_list = list(tiles)
+contour_list = list(contour)
+full_list = list(tiles)
+full_list.extend(contour)
+points_to_test = []
+for i, t1 in enumerate(tiles):
+    for j, t2 in enumerate(tiles):
         if i == j or t1.color != 'r' or t2.color != 'r':
             continue
 
@@ -216,25 +212,34 @@ for i, t1 in enumerate(corner_tiles):
         ex = max(t1.x, t2.x)
         ey = max(t1.y, t2.y)
 
-        area = (abs(t1.x - t2.x) + 1) * (abs(t1.y - t2.y) + 1)
-
         abort = False
-        for x in range(sx, ex):
-            for y in range(sy, ey):
+        x = sx
+        while x <= ex:
+            y = sy
+            while y <= ey:
                 new_t = Tile(x, y)
-                if new_t not in tiles and not tile_in_polygon(new_t, corner_tiles):
-                    print('found a point', new_t, 'of rect', t1, t2, 'not in polygon')
+                if new_t in tiles or new_t in contour or tile_in_polygon(new_t, tiles_list):
+                    # print("Point", new_t, "is inside the polygon")
+                    pass
+                else:
+                    # print('found a point', new_t, 'of rect', t1, t2, 'not in polygon')
+                    # if new_t not in points_to_test:
+                    #     points_to_test.append(new_t)
                     abort = True
                     break
+                y += 1
             if abort:
                 break
+            x += 1
 
         if abort:
             continue
 
+        area = (abs(t1.x - t2.x) + 1) * (abs(t1.y - t2.y) + 1)
         if area > largest_area:
-            print('rect', t1, t2, 'in polygon. area =', area)
+            # print('rect', t1, t2, 'in polygon. area =', area)
             largest_area = area
 
-print_map()
+# print_map(full_list, points_to_test)
+# print(points_to_test)
 print(largest_area)

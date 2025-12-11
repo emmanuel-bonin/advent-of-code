@@ -2,6 +2,10 @@ class Point:
     def __init__(self, x, y):
         self.x = x
         self.y = y
+    def __repr__(self):
+        return f"({self.x}, {self.y})"
+    def __hash__(self):
+        return hash((self.x, self.y))
 
 # Checking if a point is inside a polygon
 def point_in_polygon(point, polygon):
@@ -40,7 +44,20 @@ def point_in_polygon(point, polygon):
 # Driver code
 if __name__ == "__main__":
     # Define a point to test
-    point = Point(3, 4)
+    points_to_test = [
+        Point(x, y)
+        for (x, y) in [
+            # points found not found by part2.py
+            (8, 2), # inside
+            (2, 1),
+            (9, 2), # inside
+            (7, 7),
+            (2, 6),
+            (10, 6), # inside
+            (9, 3), # inside
+            (3, 4), # inside
+        ]
+    ]
 
     # Define a polygon
     polygon = [
@@ -54,8 +71,13 @@ if __name__ == "__main__":
         Point(7,3),
     ]
 
-    # Check if the point is inside the polygon
-    if point_in_polygon(point, polygon):
-        print("Point is inside the polygon")
-    else:
-        print("Point is outside the polygon")
+    result = []
+    for point in points_to_test:
+        # Check if the point is inside the polygon
+        if point in polygon or point_in_polygon(point, polygon):
+            result.append(point)
+            print("Point", point, "is inside the polygon")
+
+    print(result)
+        # else:
+        #     print("Point", point, "is outside the polygon")
