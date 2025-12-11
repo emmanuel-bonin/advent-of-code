@@ -1,6 +1,6 @@
 import math
 
-f = open('input.txt', 'r')
+f = open('example.txt', 'r')
 lines = [line.strip() for line in f.readlines()]
 f.close()
 
@@ -153,10 +153,11 @@ def add_contour():
 #             return False
 #     return True
 
-cache = {}
-def tile_in_polygon(tile: Tile, polygon: list[Tile]):
-    if tile in cache:
-        return cache[tile]
+from functools import lru_cache
+
+@lru_cache(maxsize=None)
+def tile_in_polygon(tile: Tile):
+    polygon = list(tiles)
     num_vertices = len(polygon)
     x, y = tile.x, tile.y
     inside = False
@@ -187,7 +188,6 @@ def tile_in_polygon(tile: Tile, polygon: list[Tile]):
         tile1 = tile2
 
     # Return the value of the inside flag
-    cache[tile] = inside
     return inside
 
 # corner_tiles = list(tiles)
@@ -203,7 +203,9 @@ full_list = list(tiles)
 full_list.extend(contour)
 points_to_test = []
 for i, t1 in enumerate(tiles):
+    print(i, '/', len(tiles), '=>', i / len(tiles) * 100, '%')
     for j, t2 in enumerate(tiles):
+        # print(((i*len(tiles)+j)/(len(tiles)*len(tiles)))*100, '% =>', (i*len(tiles)+j), "/", len(tiles)*len(tiles))
         if i == j or t1.color != 'r' or t2.color != 'r':
             continue
 
@@ -212,27 +214,22 @@ for i, t1 in enumerate(tiles):
         ex = max(t1.x, t2.x)
         ey = max(t1.y, t2.y)
 
-        abort = False
-        x = sx
-        while x <= ex:
-            y = sy
-            while y <= ey:
-                new_t = Tile(x, y)
-                if new_t in tiles or new_t in contour or tile_in_polygon(new_t, tiles_list):
-                    # print("Point", new_t, "is inside the polygon")
-                    pass
-                else:
-                    # print('found a point', new_t, 'of rect', t1, t2, 'not in polygon')
-                    # if new_t not in points_to_test:
-                    #     points_to_test.append(new_t)
-                    abort = True
-                    break
-                y += 1
-            if abort:
-                break
-            x += 1
+        new_t1 = Tile(sx, sy)
+        new_t2 = Tile(ex, ey)
+        new_t3 = Tile(ex, sy)
+        new_t4 = Tile(sx, ey)
 
-        if abort:
+        in_new_t1 = new_t1 in tiles or new_t1 in contour or tile_in_polygon(new_t1)
+        if not in_new_t1:
+            continue
+        in_new_t2 = new_t2 in tiles or new_t2 in contour or tile_in_polygon(new_t2)
+        if not in_new_t2:
+            continue
+        in_new_t3 = new_t3 in tiles or new_t3 in contour or tile_in_polygon(new_t3)
+        if not in_new_t3:
+            continue
+        in_new_t4 = new_t4 in tiles or new_t4 in contour or tile_in_polygon(new_t4)
+        if not in_new_t4:
             continue
 
         area = (abs(t1.x - t2.x) + 1) * (abs(t1.y - t2.y) + 1)
