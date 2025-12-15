@@ -10,14 +10,11 @@ for y in range(len(lines)):
             rays_x.add(x)
             continue
         if lines[y][x] == '^':
-            done = False
-            while not done:
-                done = True
-                for rx in rays_x:
-                    if rx == x:
-                        res += 1
-                        rays_x.add(x-1)
-                        rays_x.add(x+1)
-                        rays_x.remove(x)
-                        break
+            for rx in rays_x:
+                if rx == x:
+                    res += 1
+                    rays_x.add(x-1)
+                    rays_x.add(x+1)
+                    rays_x.remove(x)
+                    break
 print(res)
